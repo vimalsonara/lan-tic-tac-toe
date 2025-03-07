@@ -2,49 +2,173 @@
 <html>
 <head>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 320px;
+      margin: 0;
+      padding: 10px;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .connection, .room-controls, .game-info {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    
     .board {
       display: grid;
-      grid-template-columns: repeat(3, 50px);
+      grid-template-columns: repeat(3, 60px);
       gap: 5px;
-      margin: 20px;
-      width: 100%;
+      margin: 10px auto;
     }
+    
     .cell {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border: 2px solid #333;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 24px;
+      font-weight: bold;
       cursor: pointer;
     }
-    #status {
-      margin: 20px;
-      font-size: 18px;
+    
+    .cell.win {
+      background-color: #c8e6c9;
     }
-    #connection {
-      margin: 20px;
+    
+    .cell.disabled {
+      cursor: not-allowed;
+    }
+    
+    #status {
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 10px 0;
+      min-height: 20px;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    
+    button {
+      padding: 8px 12px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #3367d6;
+    }
+    
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    
+    input {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .room-list {
+      max-height: 100px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .room-item {
+      padding: 5px 10px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .room-item:hover {
+      background-color: #f1f1f1;
+    }
+    
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div id="connection">
-    <input type="text" id="serverAddress" placeholder="Server address (e.g., 192.168.1.100:3000)">
-    <button id="connect">Connect</button>
+  <div class="container">
+    <!-- Connection Section -->
+    <div id="connectionSection" class="connection">
+      <h3>Connect to Server</h3>
+      <input type="text" id="serverAddress" placeholder="Server address (e.g., 192.168.1.100:3000)">
+      <button id="connectBtn">Connect</button>
+    </div>
+    
+    <!-- Room Controls Section -->
+    <div id="roomSection" class="room-controls hidden">
+      <h3>Game Rooms</h3>
+      <div class="button-group">
+        <button id="createRoomBtn">Create Room</button>
+        <button id="refreshRoomsBtn">Refresh Rooms</button>
+      </div>
+      
+      <div>
+        <p>Available Rooms:</p>
+        <div id="roomList" class="room-list"></div>
+      </div>
+      
+      <div>
+        <p>Or join by Room ID:</p>
+        <div class="button-group">
+          <input type="text" id="roomIdInput" placeholder="Enter Room ID">
+          <button id="joinRoomBtn">Join</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Game Section -->
+    <div id="gameSection" class="game-info hidden">
+      <div id="roomInfo">
+        <h3>Room: <span id="currentRoomId"></span></h3>
+        <p>You are playing as: <span id="playerSymbol"></span></p>
+      </div>
+      
+      <div id="status">Waiting for opponent...</div>
+      
+      <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+      
+      <div class="button-group">
+        <button id="resetBtn" disabled>Reset Game</button>
+        <button id="leaveRoomBtn">Leave Room</button>
+      </div>
+    </div>
   </div>
-  <div id="status"></div>
-  <div class="board" id="board">
-    <div class="cell" data-index="0"></div>
-    <div class="cell" data-index="1"></div>
-    <div class="cell" data-index="2"></div>
-    <div class="cell" data-index="3"></div>
-    <div class="cell" data-index="4"></div>
-    <div class="cell" data-index="5"></div>
-    <div class="cell" data-index="6"></div>
-    <div class="cell" data-index="7"></div>
-    <div class="cell" data-index="8"></div>
-  </div>
+  
   <script src="popup.js"></script>
 </body>
 </html>
