@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 50px);
+      gap: 5px;
+      margin: 20px;
+      width: 100%;
+    }
+    .cell {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #status {
+      margin: 20px;
+      font-size: 18px;
+    }
+    #connection {
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="connection">
+    <input type="text" id="serverAddress" placeholder="Server address (e.g., 192.168.1.100:3000)">
+    <button id="connect">Connect</button>
+  </div>
+  <div id="status"></div>
+  <div class="board" id="board">
+    <div class="cell" data-index="0"></div>
+    <div class="cell" data-index="1"></div>
+    <div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div>
+    <div class="cell" data-index="4"></div>
+    <div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div>
+    <div class="cell" data-index="7"></div>
+    <div class="cell" data-index="8"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

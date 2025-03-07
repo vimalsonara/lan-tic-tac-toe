@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "LAN Tic Tac Toe",
+  "version": "1.0",
+  "description": "Play Tic Tac Toe with other users on your local network",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
